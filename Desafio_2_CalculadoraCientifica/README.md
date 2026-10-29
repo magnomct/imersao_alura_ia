@@ -2,6 +2,10 @@
 ### *Well-Architected, Resilient & Enterprise-Grade Architecture*
 
 [![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5+-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-8+-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![SymPy](https://img.shields.io/badge/SymPy-Algebra-4C8CBF?style=flat)](https://www.sympy.org/)
 [![Matplotlib](https://img.shields.io/badge/Matplotlib-Plotting-11557C?style=flat)](https://matplotlib.org/)
 [![Pytest](https://img.shields.io/badge/Pytest-62%20Passing-success?style=flat&logo=pytest&logoColor=white)](https://docs.pytest.org/)
@@ -19,8 +23,8 @@ Evolução arquitetural da Calculadora do Desafio 1 para uma **aplicação modul
 2. [Alinhamento aos Pilares do Well-Architected Framework](#-alinhamento-aos-pilares-do-well-architected-framework)
 3. [Árvore de Diretórios Modular](#-árvore-de-diretórios-modular)
 4. [Mecanismos de Segurança (Hardening & AppSec)](#-mecanismos-de-segurança-hardening--appsec)
-5. [Escopo Completo de Funcionalidades](#-escopo-completo-de-funcionalidades)
-6. [Como Executar a Aplicação](#-como-executar-a-aplicação)
+5. [Escopo de Funcionalidades & Interface Gráfica Web](#-escopo-de-funcionalidades--interface-gráfica-web)
+6. [Como Executar a Aplicação (Interface Web & Terminal CLI)](#-como-executar-a-aplicação-interface-web--terminal-cli)
 7. [Plano de Verificação e Testes (QA & Security Testing)](#-plano-de-verificação-e-testes-qa--security-testing)
 8. [Execução em Contêiner Docker Seguro](#-execução-em-contêiner-docker-seguro)
 9. [Autor & Licença](#-autor--licença)
@@ -146,43 +150,132 @@ if ".." in target_filename or "/" in target_filename or "\\" in target_filename:
 
 ---
 
-## 🎯 Escopo Completo de Funcionalidades
+## 🎯 Escopo de Funcionalidades & Interface Gráfica Web
 
-### 1. Operações Básicas (Zero Regressão)
-- Adição (`+`), Subtração (`-`), Multiplicação (`*`) e Divisão (`/`) com prevenção de divisão por zero.
-
-### 2. Matemática Científica
-- **Porcentagem:** Cálculo de $x\%$ de um valor.
-- **Exponenciação:** Potenciação $a^b$ com proteção anti-estouro.
-- **Raízes:** Raiz quadrada ($\sqrt{x}$), cúbica ($\sqrt[3]{x}$, com suporte a números negativos) e n-ésima ($\sqrt[n]{x}$).
-- **Trigonometria:** Seno, cosseno e tangente com suporte tanto a **Graus** quanto a **Radianos** e detecção de indeterminações (ex.: $\tan(90^\circ)$).
-- **Logaritmos:** Logaritmo natural ($\ln$), base 10 ($\log_{10}$) e base arbitrária ($\log_b(x)$).
-- **Fatorial:** Cálculo preciso de $n!$ com salvaguarda Anti-DoS.
-- **Conversão de Bases:** Conversão bidirecional entre bases binária (2), octal (8), decimal (10) e hexadecimal (16).
-
-### 3. Álgebra & Resolução Simbólica (SymPy)
-- **Equações de 2º Grau (Bhaskara):** Resolução analítica de $ax^2 + bx + c = 0$, identificando raízes reais duplas, reais distintas ou complexas conjugadas ($a \pm bi$).
-- **Expressões Simbólicas:** Simplificação de expressões e avaliação numérica via substituição de incógnitas (`subs`).
-- **Resolução de Equações:** Cálculo das soluções analíticas para $f(x) = 0$.
-
-### 4. Visualização Gráfica (Matplotlib)
-- Renderização de curvas de funções matemáticas em formato PNG com tema escuro, eixos cartesianos, grids e fechamento automático de buffers.
-
-### 5. Conversores e Integrações Externas
-- **Distância:** Conversão métrica e imperial (`km`, `m`, `cm`, `mm`, `mi`, `yd`, `ft`, `in`).
-- **Temperatura:** Conversão entre Celsius, Fahrenheit e Kelvin respeitando o **Zero Absoluto** ($0\text{ K} = -273.15^\circ\text{C}$).
-- **Câmbio HTTP:** Consulta de taxas de moedas (USD, BRL, EUR, GBP, JPY, CAD, etc.) com SSL obrigatório, timeout de 3s a 5s, cache local de 1 hora e fallback seguro para contingência offline.
-
-### 6. Persistência de Histórico (JSON)
-- Armazenamento em `data/history.json` com data/hora em UTC, categoria, expressão e resultado, com recurso de exportação segura e limpeza.
+A aplicação conta com um ecossistema duplo: um **motor matemático modular robusto em Python** acompanhado de uma **Interface Gráfica Web Moderna (Single Page Application)** construída com React 19, TypeScript, Tailwind CSS e Vite.
 
 ---
 
-## 🚀 Como Executar a Aplicação
+### 1. Funcionalidades do Backend & CLI (Python 3.12)
 
-### Opção 1: Ambiente Local com Virtualenv (Recomendado)
+#### Operações Básicas (Zero Regressão)
+- Adição (`+`), Subtração (`-`), Multiplicação (`*`) e Divisão (`/`) com prevenção rigorosa de divisão por zero.
 
-1. Entre no diretório do projeto:
+#### Matemática Científica
+- **Porcentagem:** Cálculo de $x\%$ de um valor.
+- **Exponenciação:** Potenciação $a^b$ com proteção anti-estouro ($|exp| \le 10000$).
+- **Raízes:** Raiz quadrada ($\sqrt{x}$), cúbica ($\sqrt[3]{x}$, com suporte a números negativos) e n-ésima ($\sqrt[n]{x}$).
+- **Trigonometria:** Seno, cosseno e tangente com suporte a **Graus (DEG)** e **Radianos (RAD)**, com tratamento de assíntotas (ex.: $\tan(90^\circ)$).
+- **Logaritmos:** Logaritmo natural ($\ln$), base 10 ($\log_{10}$) e base arbitrária ($\log_b(x)$).
+- **Fatorial:** Cálculo de $n!$ com salvaguarda Anti-DoS ($n \le 1000$).
+- **Conversão de Bases:** Conversão bidirecional entre binário (2), octal (8), decimal (10) e hexadecimal (16).
+
+#### Álgebra & Resolução Simbólica (SymPy)
+- **Equações de 2º Grau (Bhaskara):** Resolução analítica de $ax^2 + bx + c = 0$, calculando $\Delta$ e discriminando raízes reais duplas, reais distintas ou complexas conjugadas ($a \pm bi$).
+- **Expressões Simbólicas:** Análise por AST, simplificação de equações e avaliação com substituição (`subs`).
+
+#### Visualização e Persistência
+- **Gráficos Matplotlib:** Renderização de curvas em formato PNG headless (backend `'Agg'`) com liberação garantida de buffers de memória (`plt.close`).
+- **Histórico JSON Atômico:** Gravação de auditoria em `data/history.json` com gravação atômica protegida contra corrupção e contra path traversal.
+
+#### Integrações & Conversores
+- **Distância:** Conversão de 8 grandezas métricas e imperiais (`km`, `m`, `cm`, `mm`, `mi`, `yd`, `ft`, `in`).
+- **Temperatura:** Conversão entre Celsius, Fahrenheit e Kelvin com trava física de **Zero Absoluto** ($T \ge -273.15^\circ\text{C}$).
+- **Câmbio HTTP Resiliente:** Consumo de API de cotação via `requests` com SSL obrigatório, timeout de 3s-5s, cache local com TTL de 1 hora e fallback gracioso offline.
+
+---
+
+### 2. Módulos da Interface Gráfica Interativa (Web UI SPA)
+
+A interface gráfica foi concebida para oferecer alta produtividade visual, responsividade completa e feedback em tempo real:
+
+1. **Calculadora Científica (`calculator`):**
+   - Teclado científico completo com display multifunção, suporte a atalhos de teclado e histórico rápido.
+   - Alternância dinâmica instantânea entre **DEG (Graus)** e **RAD (Radianos)**.
+   - Painel interativo de **Bhaskara** para cálculo de raízes e discriminante $\Delta$.
+   - **Conversor de Bases Simultâneo**: insira um valor decimal e visualize instantaneamente sua representação em Binário, Octal, Decimal e Hexadecimal.
+
+2. **Visualizador Gráfico de Funções f(x) (`plotter`):**
+   - Renderização gráfica contínua baseada em SVG cartesiano preciso.
+   - Parser matemático seguro sem `eval()` / sem injeção de código.
+   - Suporte a operadores, trigonométricas (`sin`, `cos`, `tan`), potenciação e funções compostas.
+   - Presets imediatos: `sin(x) * cos(x)`, Parábola ($x^2 - 4x + 4$), Cúbica ($x^3 - 3x$).
+   - Ajuste em tempo real de limites de domínio ($X_{\min}$ e $X_{\max}$) com autoescala vertical.
+
+3. **Conversores & Moedas (`converters`):**
+   - **Aba Distâncias:** Conversor numérico instantâneo de unidades de comprimento.
+   - **Aba Temperatura:** Conversor térmico com salvaguarda física visual contra valores inferiores ao Zero Absoluto.
+   - **Aba Moedas & Câmbio:** Conversão de moedas (USD, BRL, EUR, GBP, JPY, CAD) com aviso visual de contingência/resiliência.
+
+4. **Histórico Persistente (`history`):**
+   - Tabela organizada com timestamp de execução, selo de categoria por cores, expressão e resultado.
+   - Copiar cálculo diretamente para a área de transferência com um clique.
+   - Limpeza e gerenciamento do histórico com persistência em `localStorage`.
+
+5. **Painel de Arquitetura & Governança Well-Architected (`architecture`):**
+   - Visão didática interativa dos pilares de Excelência Operacional, Segurança, Confiabilidade, Performance e Custos.
+   - Métricas de segurança (Anti-DoS, No-Eval, Sandbox, Non-Root Docker).
+   - Guia de execução rápida e rastreabilidade técnica.
+
+---
+
+## 🚀 Como Executar a Aplicação (Interface Web & Terminal CLI)
+
+Você pode interagir com o projeto através da **Interface Gráfica Web** ou via **Terminal CLI em Python**.
+
+### 🌐 1. Como Subir a Interface Gráfica Web (React 19 + Vite)
+
+#### Pré-requisitos:
+- **Node.js 18+** e **npm** instalados ([nodejs.org](https://nodejs.org/)).
+
+#### Passo a passo para execução:
+
+1. Acesse o diretório da calculadora científica:
+   ```bash
+   cd Desafio_2_CalculadoraCientifica
+   ```
+
+2. Instale as dependências do projeto:
+   ```bash
+   npm install
+   ```
+
+3. Inicie o servidor de desenvolvimento do Vite:
+   ```bash
+   npm run dev
+   ```
+
+4. Acesse a aplicação no seu navegador:
+   ```text
+   http://localhost:3000
+   ```
+   *(ou a porta indicada no terminal, ex: `http://localhost:5173`)*
+
+#### Comandos adicionais da interface web:
+```bash
+# Executar a suíte de testes unitários do motor científico frontend (22 testes)
+npm test
+
+# Verificar a conformidade e tipagem do TypeScript
+npm run lint
+
+# Gerar o build otimizado de produção
+npm run build
+
+# Pré-visualizar o build de produção localmente
+npm run preview
+```
+
+---
+
+### 💻 2. Como Executar o Backend / CLI em Python
+
+#### Pré-requisitos:
+- **Python 3.12+** instalado.
+
+#### Passo a passo para execução:
+
+1. Acesse o diretório da calculadora científica:
    ```bash
    cd Desafio_2_CalculadoraCientifica
    ```
@@ -198,7 +291,7 @@ if ".." in target_filename or "/" in target_filename or "\\" in target_filename:
    pip install -r requirements.txt
    ```
 
-4. Execute a aplicação:
+4. Execute o terminal interativo:
    ```bash
    python3 main.py
    ```
@@ -207,15 +300,23 @@ if ".." in target_filename or "/" in target_filename or "\\" in target_filename:
 
 ## 🧪 Plano de Verificação e Testes (QA & Security Testing)
 
-### 1. Execução da Suíte Completa de Testes com Pytest
-Execute todos os 62 testes automatizados no terminal:
+A aplicação conta com uma camada abrangente de qualidade e segurança em dois níveis (Backend e Frontend):
+
+### 1. Suíte de Testes Automatizados no Backend (Python / Pytest - 62 Testes)
+Cobre regressão zero, segurança AppSec (No-Eval, anti-injection, Anti-DoS, anti-traversal), Bhaskara, SymPy, Plotter e contingência de moedas:
 ```bash
+# Executar todos os 62 testes automatizados
 .venv/bin/pytest -v
+
+# Verificar tempo de execução por teste e sumário
+.venv/bin/pytest -v --durations=5
 ```
 
-Para verificar o tempo de execução e sumário detalhado:
+### 2. Suíte de Testes Automatizados no Frontend (TypeScript / Node - 22 Testes)
+Valida a paridade do simulador básico, a precisão das funções científicas na interface gráfica e os controles sanitizadores:
 ```bash
-.venv/bin/pytest -v --durations=5
+# Executar os 22 testes unitários do motor científico web
+npm test
 ```
 
 ---

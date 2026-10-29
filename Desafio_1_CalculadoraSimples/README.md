@@ -7,6 +7,7 @@
 [![Vite](https://img.shields.io/badge/Vite-8+-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Tests](https://img.shields.io/badge/Tests-15%20Passing-success?style=flat)](./src/utils/calculator-simulator.test.ts)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Imersão IA](https://img.shields.io/badge/Imers%C3%A3o_IA-Alura-blueviolet)](https://www.alura.com.br/)
 
 ---
@@ -29,6 +30,7 @@
 6. [Testes Automatizados](#-testes-automatizados)
 7. [Segurança e Configuração do Git (.gitignore)](#-segurança-e-configuração-do-git-gitignore)
 8. [Próximos Passos de Aprendizado](#-próximos-passos-de-aprendizado)
+9. [Autor & Licença](#-autor--licença)
 
 ---
 
@@ -241,6 +243,15 @@ O arquivo `.gitignore` protege segredos e evita o versionamento de arquivos temp
 3. **Tratamento de Exceções (`try / except`):** Capturar quando um usuário digita letras nos campos numéricos para prevenir `ValueError`.
 
 ---
+
+## 👤 Autor & Licença
+
+Desenvolvido por **Carlos Magno**  
+GitHub: [@magnomct](https://github.com/magnomct) &middot; LinkedIn: [Carlos Magno](https://www.linkedin.com/in/carlosmagnogcs/) &middot; Repositório de Referência: [sre_rag_agent](https://github.com/magnomct/sre_rag_agent)
+
+Distribuído sob a licença **MIT**. Consulte o arquivo [LICENSE](./LICENSE) para obter mais informações.
+
+---
 ---
 
 # 🇺🇸 English Version (EN-US)
@@ -254,6 +265,7 @@ O arquivo `.gitignore` protege segredos e evita o versionamento de arquivos temp
 6. [Automated Testing](#-automated-testing)
 7. [Security & Git Configuration (.gitignore)](#-security--git-configuration-gitignore)
 8. [Next Learning Milestones](#-next-learning-milestones)
+9. [Author & License](#-author--license)
 
 ---
 
@@ -463,3 +475,12 @@ The project includes an exhaustive `.gitignore` file preventing unwanted files f
 1. **Functions (`def`):** Group calculations into reusable functions (`add(a, b)`, `divide(a, b)`).
 2. **Looping (`while`):** Keep the calculator running for multiple operations until the user decides to exit.
 3. **Exception Handling (`try / except`):** Gracefully handle non-numeric user inputs to prevent unexpected `ValueError` crashes.
+
+---
+
+## 👤 Author & License
+
+Developed by **Carlos Magno**  
+GitHub: [@magnomct](https://github.com/magnomct) &middot; LinkedIn: [Carlos Magno](https://www.linkedin.com/in/carlosmagnogcs/) &middot; Reference Repository: [sre_rag_agent](https://github.com/magnomct/sre_rag_agent)
+
+Distributed under the **MIT License**. See the [LICENSE](./LICENSE) file for more information.

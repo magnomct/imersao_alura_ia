@@ -11,8 +11,8 @@ Repositório dedicado aos projetos e exercícios práticos desenvolvidos durante
 
 | Desafio | Descrição | Tecnologias | Status |
 | :--- | :--- | :--- | :---: |
-| [**Desafio 1 - Calculadora Simples**](./Desafio_1_CalculadoraSimples) | Calculadora sequencial didática abordando variáveis, condições e I/O em Python | Python 3, Vite, React | Concluído ✅ |
-| [**Desafio 2 - Calculadora Científica**](./Desafio_2_CalculadoraCientifica) | Calculadora científica modular, resiliente e segura alinhada ao Well-Architected Framework | Python 3.12, SymPy, Matplotlib, Docker, Pytest | Concluído ✅ |
+| [**Desafio 1 - Calculadora Simples**](./Desafio_1_CalculadoraSimples) | Calculadora sequencial didática com simulador visual interativo, variáveis e I/O | Python 3, React 19, Vite, Tailwind | Concluído ✅ |
+| [**Desafio 2 - Calculadora Científica**](./Desafio_2_CalculadoraCientifica) | Calculadora científica modular com interface web rica, plotagem SVG, Well-Architected Framework e AppSec | Python 3.12, React 19, SymPy, Matplotlib, Docker, Pytest | Concluído ✅ |
 
 ---
 
