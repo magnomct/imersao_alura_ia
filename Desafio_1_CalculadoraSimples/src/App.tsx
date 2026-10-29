@@ -4,16 +4,19 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Header } from './components/Header';
+import { Header, AppTab } from './components/Header';
+import { SimpleCalculator } from './components/SimpleCalculator';
 import { CodeViewer } from './components/CodeViewer';
 import { InteractiveSimulator } from './components/InteractiveSimulator';
 import { ConceptExplainer } from './components/ConceptExplainer';
 import { QuizAndChallenges } from './components/QuizAndChallenges';
 import { PYTHON_SOURCE_CODE } from './utils/calculator-simulator';
-import { Check, Sparkles, BookOpen, Terminal, HelpCircle } from 'lucide-react';
+import { Check, Sparkles, Calculator as CalculatorIcon, ArrowRight } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'simulator' | 'concepts' | 'quiz'>('simulator');
+  // Starts with 'calculator' as requested (initial view showing only the calculator)
+  const [activeTab, setActiveTab] = useState<AppTab>('calculator');
+  const [showAllMenus, setShowAllMenus] = useState<boolean>(false);
   const [activeLine, setActiveLine] = useState<number | undefined>(undefined);
   const [copied, setCopied] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -24,6 +27,9 @@ export default function App() {
     const tabParam = params.get('tab');
     if (tabParam === 'concepts' || tabParam === 'quiz' || tabParam === 'simulator') {
       setActiveTab(tabParam);
+      setShowAllMenus(true);
+    } else if (tabParam === 'calculator') {
+      setActiveTab('calculator');
     }
   }, []);
 
@@ -67,6 +73,11 @@ export default function App() {
     }, 3000);
   };
 
+  const handleOpenTutorMode = () => {
+    setShowAllMenus(true);
+    setActiveTab('simulator');
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500/30 selection:text-emerald-200">
       {/* Toast Notification */}
@@ -85,6 +96,8 @@ export default function App() {
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        showAllMenus={showAllMenus}
+        setShowAllMenus={setShowAllMenus}
         onCopyCode={handleCopyCode}
         copied={copied}
         onDownloadCode={handleDownloadCode}
@@ -92,25 +105,53 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Banner with learning goal */}
+        {/* Banner with learning goal / view mode indicator */}
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
-              <Sparkles className="w-4 h-4" />
+              {activeTab === 'calculator' ? (
+                <CalculatorIcon className="w-4 h-4" />
+              ) : (
+                <Sparkles className="w-4 h-4" />
+              )}
             </div>
             <div>
-              <p className="text-xs text-slate-300">
-                <strong className="text-white">Objetivo do Aprendizado:</strong> Compreender na prática como instruções
-                sequenciais, variáveis e condições (<code className="text-purple-300 font-mono">if/elif/else</code>)
-                trabalham juntas para resolver problemas.
-              </p>
+              {activeTab === 'calculator' ? (
+                <p className="text-xs text-slate-300">
+                  <strong className="text-white">Modo Calculadora Direta:</strong> Faça cálculos imediatos com as quatro operações. Para visualizar o código Python correspondente, ative o Modo Tutor.
+                </p>
+              ) : (
+                <p className="text-xs text-slate-300">
+                  <strong className="text-white">Modo Tutor Ativo:</strong> Compreenda na prática como instruções sequenciais, variáveis e condições (<code className="text-purple-300 font-mono">if/elif/else</code>) trabalham juntas.
+                </p>
+              )}
             </div>
           </div>
+
           <div className="flex items-center gap-2 text-xs text-slate-400 shrink-0">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Código com comentários em cada linha
+            {activeTab === 'calculator' ? (
+              <button
+                onClick={handleOpenTutorMode}
+                className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors cursor-pointer"
+              >
+                <span>Ver Código e Menus</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            ) : (
+              <>
+                <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Código com comentários em cada linha
+              </>
+            )}
           </div>
         </div>
+
+        {/* Tab 0: Initial View - Simple Calculator Only */}
+        {activeTab === 'calculator' && (
+          <div className="py-2">
+            <SimpleCalculator onOpenTutorMode={handleOpenTutorMode} />
+          </div>
+        )}
 
         {/* Tab 1: Code & Interactive Simulator */}
         {activeTab === 'simulator' && (
@@ -150,24 +191,39 @@ export default function App() {
       <footer className="border-t border-slate-800/80 bg-slate-950 py-4 mt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
           <div>
-            Tutor Python • Guia Didático de Programação para Iniciantes
+            Tutor Python • Calculadora Simples & Guia Didático de Programação
           </div>
           <div className="flex items-center gap-4">
             <button
-              onClick={() => setActiveTab('simulator')}
-              className="hover:text-slate-300 transition-colors"
+              onClick={() => setActiveTab('calculator')}
+              className="hover:text-slate-300 transition-colors cursor-pointer"
             >
-              Simulador
+              Calculadora
             </button>
             <button
-              onClick={() => setActiveTab('concepts')}
-              className="hover:text-slate-300 transition-colors"
+              onClick={() => {
+                setShowAllMenus(true);
+                setActiveTab('simulator');
+              }}
+              className="hover:text-slate-300 transition-colors cursor-pointer"
             >
-              Explicação dos Componentes
+              Código & Simulador
             </button>
             <button
-              onClick={() => setActiveTab('quiz')}
-              className="hover:text-slate-300 transition-colors"
+              onClick={() => {
+                setShowAllMenus(true);
+                setActiveTab('concepts');
+              }}
+              className="hover:text-slate-300 transition-colors cursor-pointer"
+            >
+              Guia de Conceitos
+            </button>
+            <button
+              onClick={() => {
+                setShowAllMenus(true);
+                setActiveTab('quiz');
+              }}
+              className="hover:text-slate-300 transition-colors cursor-pointer"
             >
               Quiz de Fixação
             </button>

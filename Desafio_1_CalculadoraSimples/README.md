@@ -137,18 +137,25 @@ intercepta o divisor nulo antes do cálculo, preservando a integridade da aplica
 
 ## 🖥️ Guia de Uso da Interface Gráfica (Web Simulator)
 
-A interface interativa foi projetada para tornar visível o que normalmente ocorre nos bastidores do computador.
+A interface interativa foi projetada para oferecer tanto uma calculadora direta quanto um ambiente visual completo de aprendizagem.
 
-### 1. Barra de Navegação Superior (Header)
-- **Abas de Navegação:**
-  - `>_ Código & Simulador`: Ambiente principal de execução e visualização.
-  - `📖 Guia de Conceitos`: Teoria detalhada em formato acordeão sobre instruções, variáveis, operadores e indentação.
-  - `❓ Quiz & Desafios`: 4 perguntas interativas para testar conhecimentos e propostas de novos desafios práticos.
-- **Botões Rápidos:**
-  - `Copiar Código`: Copia o script Python para a área de transferência com notificação visual.
-  - `Baixar .py`: Faz o download direto do arquivo `calculadora.py`.
+### 1. Botão Inicial: Modo "Somente Calculadora" (Visão Inicial Focada)
+Ao carregar a aplicação, ela inicia no modo **`Somente Calculadora`**, exibindo uma experiência limpa e direta:
+- **Campos de Entrada:** Digite o 1º número, selecione o operador (`+`, `-`, `*`, `/`) e digite o 2º número.
+- **Atalhos Rápidos:** Botões para preencher automaticamente cálculos comuns (`10 + 5`, `50 - 18`, `7 * 6`, `100 / 4` e `15 / 0`).
+- **Botão Calcular:** Executa a operação e exibe o resultado destacado, com tratamento seguro contra divisão por zero.
+- **Terminal Simulado:** Visualização imediata do `print` emitido pelo Python no console.
+- **Transição para o Modo Tutor:** Um banner interativo na base convida o estudante: *"Quer ver como essa calculadora funciona por dentro? Ativar Modo Tutor"*.
 
-### 2. Painel de Código-Fonte (Lado Esquerdo)
+### 2. Acesso aos Outros Menus (Modo Tutor Completo)
+Os outros menus didáticos podem ser abertos a qualquer momento clicando em **`Mostrar Outros Menus`** no cabeçalho ou no botão de transição:
+- `🧮 Somente Calculadora`: Sempre disponível no início para voltar à visão simplificada.
+- `>_ Código & Simulador`: Divide a tela entre o código Python real e o depurador passo a passo.
+- `📖 Guia de Conceitos`: Teoria em formato acordeão sobre instruções, variáveis, operadores e indentação.
+- `❓ Quiz & Desafios`: 4 perguntas interativas para testar conhecimentos e propostas de novos desafios práticos.
+- `👁️ Ocultar`: Recolhe novamente os outros menus para focar apenas na calculadora.
+
+### 3. Painel de Código-Fonte (Lado Esquerdo no Modo Tutor)
 - Exibe o código Python real com numeração de linhas e destaque sintático colorido:
   - 🟢 **Verde itálico:** Comentários explicativos (`#`).
   - 🟣 **Roxo:** Palavras reservadas e condicionais (`if`, `elif`, `else`).
@@ -157,31 +164,17 @@ A interface interativa foi projetada para tornar visível o que normalmente ocor
   - 🔴 **Rosa:** Operadores matemáticos e de comparação (`+`, `-`, `*`, `/`, `==`, `=`).
 - Durante o modo passo a passo, a linha em execução é destacada com uma barra amarela e cursor indicador `▶`, acompanhando o scroll automaticamente.
 
-### 3. Painel de Controle e Entrada de Dados (Lado Direito Superior)
-- **Entrada Manual:** Digite valores nos campos `1º Número` e `2º Número`, e clique no botão da operação desejada (`+`, `-`, `*` ou `/`).
-- **Exemplos Prontos (Presets Rápidos):** Clique em qualquer botão para carregar cenários pré-configurados:
-  - `10 + 5 (Soma)`
-  - `50 - 18 (Subtração)`
-  - `7 * 6 (Multiplicação)`
-  - `100 / 4 (Divisão)`
-  - `⚠️ 15 / 0 (Testar Divisão por Zero)`
+### 4. Painel de Controle e Entrada de Dados (Simulador Interativo)
 - **Modos de Execução:**
   - **`▶ Executar Tudo`:** Realiza o cálculo imediatamente e exibe a saída completa no terminal.
   - **`⏭ Iniciar Passo a Passo`:** Inicia a depuração visual. A cada clique em **`Próximo Passo`**, o simulador avança uma instrução no código.
   - **`⏩ Auto-Play`:** Reproduz automaticamente o avanço das instruções a cada 1,2 segundos.
   - **`↺ Reiniciar`:** Limpa os registradores de memória e restaura o estado inicial.
 
-### 4. Inspetor Visual de Memória RAM
-Monitore em tempo real as 4 variáveis do programa:
-- `numero1` (tipo `float`)
-- `operacao` (tipo `str`)
-- `numero2` (tipo `float`)
-- `resultado` (tipo `float` ou `indefinido`)
-Conforme cada instrução `input` ou atribuição é executada, o cartão correspondente muda de cor e revela o valor armazenado na memória.
-
-### 5. Card de Dica do Tutor & Terminal Simulado
-- **Dica do Tutor:** Explica em linguagem humana o que o interpretador Python acabou de fazer na linha ativa.
-- **Terminal / Saída Padrão:** Reproduz com fidelidade o console do terminal, destacando mensagens de erro em vermelho, cabeçalhos em amarelo e saídas normais em verde.
+### 5. Inspetor Visual de Memória RAM & Dicas do Tutor
+- **Memória RAM:** Monitore em tempo real as 4 variáveis do programa (`numero1`, `operacao`, `numero2`, `resultado`). Cada cartão acende e revela o valor e o tipo (`float`, `str`).
+- **Dica do Tutor:** Explica em linguagem clara o que o interpretador Python acabou de processar no passo ativo.
+- **Ações Rápidas do Topo:** Copiar o código (`Copiar Código`) e baixar o script original (`Baixar .py`).
 
 ---
 
@@ -369,51 +362,43 @@ prevents application crashes, displaying a clean error message to the learner.
 
 ## 🖥️ Interactive Graphical Interface User Guide (Web Simulator)
 
-The web simulator visualizes internal Python operations step-by-step.
+The web simulator provides both a direct calculator and a visual Python learning platform.
 
-### 1. Top Navigation Bar (Header)
-- **Navigation Tabs:**
-  - `>_ Código & Simulador`: Main workspace for visual execution and memory inspection.
-  - `📖 Guia de Conceitos`: Accordion-based deep dive into instructions, variables, operators, and indentation.
-  - `❓ Quiz & Desafios`: 4 interactive questions with instant answer explanations and follow-up challenges.
-- **Header Actions:**
-  - `Copiar Código`: Copies the full Python script to clipboard with toast confirmation.
-  - `Baixar .py`: Direct file download of `calculadora.py`.
+### 1. Initial Button: "Somente Calculadora" (Calculator Only Mode)
+On first load, the app opens directly into **`Somente Calculadora` (Calculator Only)**:
+- **Input Fields:** Enter Number 1, select an operator (`+`, `-`, `*`, `/`), and enter Number 2.
+- **Quick Shortcuts:** Instant buttons for common tests (`10 + 5`, `50 - 18`, `7 * 6`, `100 / 4`, and zero-division `15 / 0`).
+- **Calculate Button:** Computes the arithmetic result with built-in zero-division defense.
+- **Simulated Terminal:** Displays the exact console `print` lines produced by Python.
+- **Tutor Mode Invitation:** A bottom banner invites the student: *"Want to see how this calculator works internally? Open Tutor Mode"*.
 
-### 2. Source Code Viewer (Left Column)
-- Displays the complete Python code with line numbering and syntax highlighting:
-  - 🟢 **Italic Green:** Instructional comments (`#`).
-  - 🟣 **Purple:** Keywords and conditionals (`if`, `elif`, `else`).
-  - 🔵 **Cyan:** Built-in functions (`print`, `input`, `float`).
-  - 🟡 **Yellow:** String literals (`"..."`).
-  - 🔴 **Pink:** Operators and assignments (`+`, `-`, `*`, `/`, `==`, `=`).
-- In step-by-step mode, the currently executing line highlights with a yellow bar, indicator arrow `▶`, and smooth auto-scrolling.
+### 2. Accessing the Other Menus (Full Tutor Mode)
+The educational menus can be revealed anytime by clicking **`Mostrar Outros Menus` (Show Other Menus)** in the header or using the transition banner:
+- `🧮 Somente Calculadora`: Initial button always available to return to the focused view.
+- `>_ Código & Simulador`: Split-screen with real Python code on the left and visual step-by-step debugger on the right.
+- `📖 Guia de Conceitos`: Interactive accordion exploring statements, variables, operators, and indentation.
+- `❓ Quiz & Desafios`: 4 interactive questions with instant feedback and hands-on coding challenges.
+- `👁️ Ocultar` (Hide): Collapses the extended menus to refocus on the calculator.
 
-### 3. Execution Control & Data Input Panel (Top Right)
-- **Manual Input:** Fill in `1º Número` (Number 1), `2º Número` (Number 2), and toggle the operator buttons (`+`, `-`, `*`, or `/`).
-- **Quick Example Presets:** Click any preset button to test common scenarios:
-  - `10 + 5 (Soma)` - Addition
-  - `50 - 18 (Subtração)` - Subtraction
-  - `7 * 6 (Multiplicação)` - Multiplication
-  - `100 / 4 (Divisão)` - Division
-  - `⚠️ 15 / 0 (Testar Divisão por Zero)` - Zero-division edge case
-- **Execution Controls:**
-  - **`▶ Executar Tudo` (Run All):** Instant execution with complete console output.
-  - **`⏭ Iniciar Passo a Passo` (Step-by-Step):** Starts interactive debugging. Each click on **`Próximo Passo`** advances one line.
-  - **`⏩ Auto-Play`:** Automatically steps through the code every 1.2 seconds.
-  - **`↺ Reiniciar` (Reset):** Clears simulated memory and resets the console.
+### 3. Source Code Viewer (Left Column in Tutor Mode)
+- Displays genuine Python code with line numbers and syntax highlighting:
+  - 🟢 **Italic Green:** Comments (`#`).
+  - 🟣 **Purple:** Keywords (`if`, `elif`, `else`).
+  - 🔵 **Cyan:** Built-ins (`print`, `input`, `float`).
+  - 🟡 **Yellow:** Strings (`"..."`).
+  - 🔴 **Pink:** Operators (`+`, `-`, `*`, `/`, `==`, `=`).
+- In step-by-step mode, an arrow `▶` and highlight bar follow the active line with automatic scrolling.
 
-### 4. RAM Memory Inspector
-Track real-time variables as values are stored in memory:
-- `numero1` (`float`)
-- `operacao` (`str`)
-- `numero2` (`float`)
-- `resultado` (`float` or `undefined`)
-Each memory card highlights dynamically when assigned a value.
+### 4. Interactive Simulator Controls
+- **`▶ Executar Tudo` (Run All):** Instant batch execution.
+- **`⏭ Iniciar Passo a Passo` (Step-by-Step):** Inspect line-by-line execution.
+- **`⏩ Auto-Play`:** Automated line advancement every 1.2s.
+- **`↺ Reiniciar` (Reset):** Clear registers and restore default state.
 
-### 5. Tutor Context Tips & Simulated Terminal
-- **Tutor Tip Card:** Explains in plain language what the Python engine evaluated on the active line.
-- **Simulated Terminal:** Color-coded console emulator (Red for errors, Yellow for headers, Green for outputs).
+### 5. RAM Memory Inspector & Tutor Context Tips
+- **RAM Inspector:** Real-time visibility into `numero1`, `operacao`, `numero2`, and `resultado`.
+- **Tutor Tip:** Explains in plain English what the Python interpreter just executed on that specific line.
+- **Top Actions:** One-click copy (`Copiar Código`) and file download (`Baixar .py`).
 
 ---
 
