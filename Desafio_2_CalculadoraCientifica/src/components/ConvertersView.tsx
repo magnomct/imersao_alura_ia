@@ -31,7 +31,6 @@ export const ConvertersView: React.FC = () => {
   const [tempVal, setTempVal] = useState<number>(100);
   const [tempFrom, setTempFrom] = useState<string>('C');
   const [tempTo, setTempTo] = useState<string>('F');
-  const [tempError, setTempError] = useState<string | null>(null);
 
   // Moeda
   const [curVal, setCurVal] = useState<number>(100);
@@ -46,15 +45,13 @@ export const ConvertersView: React.FC = () => {
     }
   })();
 
-  const tempResultado = (() => {
-    try {
-      setTempError(null);
-      return converterTemperatura(tempVal, tempFrom, tempTo);
-    } catch (err: any) {
-      setTempError(err.message);
-      return null;
-    }
-  })();
+  let tempResultado: number | null = null;
+  let tempError: string | null = null;
+  try {
+    tempResultado = converterTemperatura(tempVal, tempFrom, tempTo);
+  } catch (err: any) {
+    tempError = err.message || 'Erro ao converter temperatura.';
+  }
 
   const moedaResultado = (() => {
     try {

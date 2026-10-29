@@ -19,14 +19,14 @@ export const FunctionPlotterView: React.FC = () => {
   const [xMin, setXMin] = useState<number>(-10);
   const [xMax, setXMax] = useState<number>(10);
   const [pointsCount, setPointsCount] = useState<number>(250);
-  const [plotError, setPlotError] = useState<string | null>(null);
 
   // Calcula a malha de pontos
-  const plotData = useMemo(() => {
-    setPlotError(null);
+  const { plotData, plotError } = useMemo(() => {
     if (xMin >= xMax) {
-      setPlotError('X Mínimo deve ser estritamente menor que X Máximo.');
-      return null;
+      return {
+        plotData: null,
+        plotError: 'X Mínimo deve ser estritamente menor que X Máximo.',
+      };
     }
 
     const step = (xMax - xMin) / pointsCount;
@@ -47,20 +47,27 @@ export const FunctionPlotterView: React.FC = () => {
       }
 
       if (points.length < 5) {
-        setPlotError('Poucos pontos válidos no domínio da função.');
-        return null;
+        return {
+          plotData: null,
+          plotError: 'Poucos pontos válidos no domínio da função.',
+        };
       }
 
       // Adiciona margem vertical
       const yMargin = (maxY - minY) * 0.1 || 1.0;
       return {
-        points,
-        minY: minY - yMargin,
-        maxY: maxY + yMargin,
+        plotData: {
+          points,
+          minY: minY - yMargin,
+          maxY: maxY + yMargin,
+        },
+        plotError: null,
       };
     } catch (err: any) {
-      setPlotError(err.message || 'Erro ao processar expressão.');
-      return null;
+      return {
+        plotData: null,
+        plotError: err.message || 'Erro ao processar expressão.',
+      };
     }
   }, [expr, xMin, xMax, pointsCount]);
 
