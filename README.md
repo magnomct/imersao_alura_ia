@@ -1,5 +1,8 @@
 # 🚀 Imersão IA - Alura
 
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 Repositório dedicado aos projetos e exercícios práticos desenvolvidos durante a **Imersão IA da Alura**.
 
 ---
@@ -20,4 +23,13 @@ O repositório já está configurado com [`.gitignore`](./.gitignore) para evita
 - Ambientes virtuais (`.venv`, `venv`)
 - Cache do Python (`__pycache__`)
 - Dependências e pacotes locais (`node_modules`)
+
+---
+
+## 👤 Autor & Licença
+
+Desenvolvido por **Carlos Magno**  
+GitHub: [@magnomct](https://github.com/magnomct) &middot; LinkedIn: [Carlos Magno](https://www.linkedin.com/in/carlosmagnogcs/) &middot; Repositório de Referência: [sre_rag_agent](https://github.com/magnomct/sre_rag_agent)
+
+Distribuído sob a licença **MIT**. Consulte o arquivo [LICENSE](./LICENSE) para obter mais informações.
 

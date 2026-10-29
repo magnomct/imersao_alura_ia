@@ -8,6 +8,7 @@
 [![Docker](https://img.shields.io/badge/Docker-Multi--stage%20%7C%20Non--Root-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
 [![AppSec](https://img.shields.io/badge/Security-By_Design%20(No_Eval)-red?style=flat)](./app/core/security.py)
 [![Well-Architected](https://img.shields.io/badge/Framework-Well--Architected-orange?style=flat)](https://aws.amazon.com/architecture/well-architected/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 Evolução arquitetural da Calculadora do Desafio 1 para uma **aplicação modular completa, resiliente e segura**, projetada sob os pilares do **Well-Architected Framework** com **Segurança por Design (Security by Design)**, observabilidade integrada, testes automatizados e containerização enxuta.
 
@@ -22,6 +23,7 @@ Evolução arquitetural da Calculadora do Desafio 1 para uma **aplicação modul
 6. [Como Executar a Aplicação](#-como-executar-a-aplicação)
 7. [Plano de Verificação e Testes (QA & Security Testing)](#-plano-de-verificação-e-testes-qa--security-testing)
 8. [Execução em Contêiner Docker Seguro](#-execução-em-contêiner-docker-seguro)
+9. [Autor & Licença](#-autor--licença)
 
 ---
 
@@ -264,3 +266,12 @@ docker run -it --rm \
   -v $(pwd)/exports:/app/exports \
   calculadora-cientifica:2.0
 ```
+
+---
+
+## 👤 Autor & Licença
+
+Desenvolvido por **Carlos Magno**  
+GitHub: [@magnomct](https://github.com/magnomct) &middot; LinkedIn: [Carlos Magno](https://www.linkedin.com/in/carlosmagnogcs/) &middot; Repositório de Referência: [sre_rag_agent](https://github.com/magnomct/sre_rag_agent)
+
+Distribuído sob a licença **MIT**. Consulte o arquivo [LICENSE](./LICENSE) para obter mais informações.
