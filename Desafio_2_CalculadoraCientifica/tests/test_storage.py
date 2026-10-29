@@ -41,7 +41,8 @@ class TestHistoryStorage:
         manager.limpar()
         assert len(manager.listar()) == 0
 
-    def test_exportar_para_arquivo_valido(self, temp_history_file):
+    def test_exportar_para_arquivo_valido(self, temp_history_file, tmp_path, monkeypatch):
+        monkeypatch.setattr("app.storage.history_manager.DATA_DIR", tmp_path)
         manager = temp_history_file
         manager.registrar("Básica", "5*5", 25)
         arquivo_exportado = manager.exportar_para_arquivo("backup_teste.json")

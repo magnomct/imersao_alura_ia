@@ -60,9 +60,12 @@ test('converterMoeda fallback contingência', () => {
   assert.equal(res.isFallback, true);
 });
 
-test('avaliarFuncaoSegura com bloqueio de injeção', () => {
+test('avaliarFuncaoSegura com bloqueio de injeção e suporte a cos', () => {
   assert.equal(avaliarFuncaoSegura('x^2 + 1', 2), 5);
   assert.equal(avaliarFuncaoSegura('sin(pi / 2)', 0), 1);
+  assert.equal(avaliarFuncaoSegura('sin(x) * cos(x)', 0), 0);
+  assert.equal(avaliarFuncaoSegura('cos(0)', 0), 1);
   assert.throws(() => avaliarFuncaoSegura('window.alert(1)', 0), /segurança/);
+  assert.throws(() => avaliarFuncaoSegura('os.system("ls")', 0), /segurança/);
 });
 

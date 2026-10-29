@@ -189,8 +189,8 @@ export function converterMoeda(valor: number, de: string, para: string): Currenc
  * Avaliador seguro de função matemática f(x) para plotagem gráfica
  */
 export function avaliarFuncaoSegura(expr: string, x: number): number {
-  // Prevenção de injeção de código na interface
-  if (/__|import|eval|exec|open|os|sys|subprocess|fetch|window|document/.test(expr.toLowerCase())) {
+  // Prevenção de injeção de código na interface (com limites de palavra para evitar colisão com 'cos', etc.)
+  if (/__|\b(import|eval|exec|open|os|sys|subprocess|fetch|window|document)\b/i.test(expr)) {
     throw new Error('Expressão contém palavras reservadas ou tokens de segurança bloqueados.');
   }
 
