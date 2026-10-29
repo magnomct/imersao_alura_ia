@@ -1,0 +1,19 @@
+# ========================================================
+# Dependências da Calculadora Científica (Well-Architected)
+# ========================================================
+
+# Computação Algébrica e Simbólica
+sympy>=1.12.0
+
+# Plotagem Gráfica
+matplotlib>=3.8.0
+
+# Processamento Numérico Vetorizado
+numpy>=1.26.0
+
+# Comunicação HTTP e Integrações Externas
+requests>=2.31.0
+
+# Framework de Testes Automatizados (QA)
+pytest>=8.0.0
+
