@@ -1,0 +1,65 @@
+# ==========================================
+# Ambientes Virtuais Python (.venv, venv)
+# ==========================================
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# ==========================================
+# Variáveis de Ambiente e Chaves de Segurança
+# ==========================================
+.env
+.env*.local
+.env.*
+!.env.example
+*.key
+*.pem
+
+# ==========================================
+# Python Bytecode e Cache
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.mypy_cache/
+
+# ==========================================
+# Dependências e Builds Node.js
+# ==========================================
+node_modules/
+dist/
+build/
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==========================================
+# Configurações de IDEs e Editores
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ==========================================
+# Arquivos de Sistema Operacional
+# ==========================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# AI Studio e Ferramentas Auxiliares
+# ==========================================
+aistudio*
+.aistudio
+
