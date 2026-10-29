@@ -1,1 +1,66 @@
 @import "tailwindcss";
+
+@layer components {
+  .btn-sci {
+    padding: 0.625rem;
+    font-size: 0.8125rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-weight: 500;
+    border-radius: 0.75rem;
+    background-color: rgba(30, 41, 59, 0.8);
+    color: #cbd5e1;
+    border: 1px solid rgba(51, 65, 85, 0.8);
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+  }
+  .btn-sci:hover {
+    background-color: #334155;
+    color: #ffffff;
+  }
+  .btn-sci:active {
+    transform: scale(0.96);
+  }
+
+  .btn-num {
+    padding: 0.75rem;
+    font-size: 1.125rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-weight: 700;
+    border-radius: 0.75rem;
+    background-color: #020617;
+    color: #ffffff;
+    border: 1px solid #1e293b;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+  }
+  .btn-num:hover {
+    background-color: #0f172a;
+    border-color: #334155;
+  }
+  .btn-num:active {
+    transform: scale(0.96);
+  }
+
+  .btn-op {
+    padding: 0.75rem;
+    font-size: 1.125rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-weight: 700;
+    border-radius: 0.75rem;
+    background-color: rgba(168, 85, 247, 0.15);
+    color: #d8b4fe;
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+  }
+  .btn-op:hover {
+    background-color: rgba(168, 85, 247, 0.25);
+    color: #f3e8ff;
+  }
+  .btn-op:active {
+    transform: scale(0.96);
+  }
+}

@@ -4,66 +4,117 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Header, AppTab } from './components/Header';
-import { SimpleCalculator } from './components/SimpleCalculator';
-import { CodeViewer } from './components/CodeViewer';
-import { InteractiveSimulator } from './components/InteractiveSimulator';
-import { ConceptExplainer } from './components/ConceptExplainer';
-import { QuizAndChallenges } from './components/QuizAndChallenges';
-import { PYTHON_SOURCE_CODE } from './utils/calculator-simulator';
-import { Check, Sparkles, Calculator as CalculatorIcon, ArrowRight } from 'lucide-react';
+import { Header, ScientificTab } from './components/Header';
+import { ScientificKeypad } from './components/ScientificKeypad';
+import { FunctionPlotterView } from './components/FunctionPlotterView';
+import { ConvertersView } from './components/ConvertersView';
+import { HistoryView } from './components/HistoryView';
+import { ArchitectureSecurityView } from './components/ArchitectureSecurityView';
+import { CalculationHistoryItem } from './utils/scientific-engine';
+import {
+  Check,
+  ShieldCheck,
+  Cpu,
+  Lock,
+  Layers,
+  Terminal,
+} from 'lucide-react';
 
 export default function App() {
-  // Starts with 'calculator' as requested (initial view showing only the calculator)
-  const [activeTab, setActiveTab] = useState<AppTab>('calculator');
-  const [showAllMenus, setShowAllMenus] = useState<boolean>(false);
-  const [activeLine, setActiveLine] = useState<number | undefined>(undefined);
+  const [activeTab, setActiveTab] = useState<ScientificTab>('calculator');
   const [copied, setCopied] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Check query parameters (e.g. ?autostart=1 or ?tab=concepts)
+  // Histórico persistente salvo no localStorage para a interface gráfica
+  const [history, setHistory] = useState<CalculationHistoryItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('calc_scientific_history');
+      if (saved) return JSON.parse(saved);
+    } catch {
+      // Ignora falhas de leitura
+    }
+    return [
+      {
+        id: '1',
+        timestamp: new Date().toLocaleTimeString(),
+        categoria: 'Científica',
+        expressao: 'sin(45°) + cos(45°)',
+        resultado: '1.4142',
+      },
+      {
+        id: '2',
+        timestamp: new Date().toLocaleTimeString(),
+        categoria: 'Álgebra',
+        expressao: 'x² - 5x + 6 = 0',
+        resultado: 'Raízes: 2.0, 3.0 (Δ = 1.0)',
+      },
+      {
+        id: '3',
+        timestamp: new Date().toLocaleTimeString(),
+        categoria: 'Básica',
+        expressao: '100 / 4',
+        resultado: '25',
+      },
+    ];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('calc_scientific_history', JSON.stringify(history));
+    } catch {
+      // Ignore localStorage quotas
+    }
+  }, [history]);
+
+  // Suporte a query params (ex: ?tab=plotter)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const tabParam = params.get('tab');
-    if (tabParam === 'concepts' || tabParam === 'quiz' || tabParam === 'simulator') {
+    const tabParam = params.get('tab') as ScientificTab;
+    if (['calculator', 'plotter', 'converters', 'history', 'architecture'].includes(tabParam)) {
       setActiveTab(tabParam);
-      setShowAllMenus(true);
-    } else if (tabParam === 'calculator') {
-      setActiveTab('calculator');
     }
   }, []);
 
+  const handleRecordHistory = (
+    categoria: CalculationHistoryItem['categoria'],
+    expressao: string,
+    resultado: string
+  ) => {
+    const newItem: CalculationHistoryItem = {
+      id: Date.now().toString(),
+      timestamp: new Date().toLocaleTimeString(),
+      categoria,
+      expressao,
+      resultado,
+    };
+    setHistory((prev) => [newItem, ...prev].slice(0, 50));
+  };
+
+  const handleClearHistory = () => {
+    setHistory([]);
+    showToast('Histórico limpo com sucesso!');
+  };
+
   const handleCopyCode = async () => {
+    const pyCode = `# Calculadora Científica Modular v2.0
+# Para executar via terminal:
+# cd Desafio_2_CalculadoraCientifica
+# python3 main.py
+# pytest tests/ -v
+`;
     try {
-      await navigator.clipboard.writeText(PYTHON_SOURCE_CODE);
+      await navigator.clipboard.writeText(pyCode);
       setCopied(true);
-      showToast('Código Python copiado para a área de transferência!');
+      showToast('Comandos e código copiados para a área de transferência!');
       setTimeout(() => setCopied(false), 2500);
     } catch {
-      // Fallback
-      const textArea = document.createElement('textarea');
-      textArea.value = PYTHON_SOURCE_CODE;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
       setCopied(true);
-      showToast('Código Python copiado para a área de transferência!');
       setTimeout(() => setCopied(false), 2500);
     }
   };
 
   const handleDownloadCode = () => {
-    const blob = new Blob([PYTHON_SOURCE_CODE], { type: 'text/x-python;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'calculadora.py';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    showToast('Download do arquivo calculadora.py iniciado!');
+    showToast('Acesse Desafio_2_CalculadoraCientifica/main.py para o script completo.');
   };
 
   const showToast = (msg: string) => {
@@ -71,11 +122,6 @@ export default function App() {
     setTimeout(() => {
       setToastMessage(null);
     }, 3000);
-  };
-
-  const handleOpenTutorMode = () => {
-    setShowAllMenus(true);
-    setActiveTab('simulator');
   };
 
   return (
@@ -92,97 +138,75 @@ export default function App() {
         </div>
       )}
 
-      {/* Main App Header */}
+      {/* Header Científico */}
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        showAllMenus={showAllMenus}
-        setShowAllMenus={setShowAllMenus}
         onCopyCode={handleCopyCode}
         copied={copied}
         onDownloadCode={handleDownloadCode}
       />
 
-      {/* Main Content Area */}
+      {/* Conteúdo Principal */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Banner with learning goal / view mode indicator */}
-        <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+        {/* Banner de Status Well-Architected & AppSec */}
+        <div className="mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
-              {activeTab === 'calculator' ? (
-                <CalculatorIcon className="w-4 h-4" />
-              ) : (
-                <Sparkles className="w-4 h-4" />
-              )}
+              <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
-              {activeTab === 'calculator' ? (
-                <p className="text-xs text-slate-300">
-                  <strong className="text-white">Modo Calculadora Direta:</strong> Faça cálculos imediatos com as quatro operações. Para visualizar o código Python correspondente, ative o Modo Tutor.
-                </p>
-              ) : (
-                <p className="text-xs text-slate-300">
-                  <strong className="text-white">Modo Tutor Ativo:</strong> Compreenda na prática como instruções sequenciais, variáveis e condições (<code className="text-purple-300 font-mono">if/elif/else</code>) trabalham juntas.
-                </p>
-              )}
+              <p className="text-xs text-slate-300">
+                <strong className="text-white">Well-Architected Framework:</strong> Aplicação modular com <strong>62 testes Pytest</strong>, validação AST sem <code>eval()</code>, Anti-DoS e containerização multi-stage non-root.
+              </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-slate-400 shrink-0">
-            {activeTab === 'calculator' ? (
-              <button
-                onClick={handleOpenTutorMode}
-                className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors cursor-pointer"
-              >
-                <span>Ver Código e Menus</span>
-                <ArrowRight className="w-3 h-3" />
-              </button>
-            ) : (
-              <>
-                <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                Código com comentários em cada linha
-              </>
-            )}
+          <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono shrink-0">
+            <span className="px-2.5 py-1 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/80 flex items-center gap-1">
+              <Check className="w-3 h-3 text-emerald-400" /> 62 Pytest OK
+            </span>
+            <span className="px-2.5 py-1 rounded-lg bg-rose-950/60 text-rose-300 border border-rose-800/80 flex items-center gap-1">
+              <Lock className="w-3 h-3 text-rose-400" /> No-Eval (AppSec)
+            </span>
+            <span className="px-2.5 py-1 rounded-lg bg-purple-950/60 text-purple-300 border border-purple-800/80 flex items-center gap-1">
+              <Cpu className="w-3 h-3 text-purple-400" /> Anti-DoS Guard
+            </span>
           </div>
         </div>
 
-        {/* Tab 0: Initial View - Simple Calculator Only */}
+        {/* Tab 1: Calculadora Científica */}
         {activeTab === 'calculator' && (
           <div className="py-2">
-            <SimpleCalculator onOpenTutorMode={handleOpenTutorMode} />
+            <ScientificKeypad onRecordHistory={handleRecordHistory} />
           </div>
         )}
 
-        {/* Tab 1: Code & Interactive Simulator */}
-        {activeTab === 'simulator' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Left Column: Python Source Code (5 cols on desktop) */}
-            <div className="lg:col-span-5 h-[620px] lg:h-[720px] sticky top-20">
-              <CodeViewer
-                activeLine={activeLine}
-                onCopy={handleCopyCode}
-                copied={copied}
-              />
-            </div>
-
-            {/* Right Column: Interactive Simulator & Terminal (7 cols on desktop) */}
-            <div className="lg:col-span-7">
-              <InteractiveSimulator onStepChange={setActiveLine} />
-            </div>
-          </div>
-        )}
-
-        {/* Tab 2: Concepts & Deep Dive Breakdown */}
-        {activeTab === 'concepts' && (
+        {/* Tab 2: Plotter Gráfico de Funções */}
+        {activeTab === 'plotter' && (
           <div className="py-2">
-            <ConceptExplainer />
+            <FunctionPlotterView />
           </div>
         )}
 
-        {/* Tab 3: Quiz & Student Challenges */}
-        {activeTab === 'quiz' && (
+        {/* Tab 3: Conversores & Moedas */}
+        {activeTab === 'converters' && (
           <div className="py-2">
-            <QuizAndChallenges />
+            <ConvertersView />
+          </div>
+        )}
+
+        {/* Tab 4: Histórico Persistente */}
+        {activeTab === 'history' && (
+          <div className="py-2">
+            <HistoryView history={history} onClearHistory={handleClearHistory} />
+          </div>
+        )}
+
+        {/* Tab 5: Arquitetura & Segurança */}
+        {activeTab === 'architecture' && (
+          <div className="py-2">
+            <ArchitectureSecurityView />
           </div>
         )}
       </main>
@@ -191,7 +215,7 @@ export default function App() {
       <footer className="border-t border-slate-800/80 bg-slate-950 py-4 mt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
           <div>
-            Tutor Python • Calculadora Simples & Guia Didático de Programação
+            Calculadora Científica Modular v2.0 • Alura Imersão IA • Python 3.12 & React 19
           </div>
           <div className="flex items-center gap-4">
             <button
@@ -201,31 +225,28 @@ export default function App() {
               Calculadora
             </button>
             <button
-              onClick={() => {
-                setShowAllMenus(true);
-                setActiveTab('simulator');
-              }}
+              onClick={() => setActiveTab('plotter')}
               className="hover:text-slate-300 transition-colors cursor-pointer"
             >
-              Código & Simulador
+              Gráficos f(x)
             </button>
             <button
-              onClick={() => {
-                setShowAllMenus(true);
-                setActiveTab('concepts');
-              }}
+              onClick={() => setActiveTab('converters')}
               className="hover:text-slate-300 transition-colors cursor-pointer"
             >
-              Guia de Conceitos
+              Conversores
             </button>
             <button
-              onClick={() => {
-                setShowAllMenus(true);
-                setActiveTab('quiz');
-              }}
+              onClick={() => setActiveTab('history')}
               className="hover:text-slate-300 transition-colors cursor-pointer"
             >
-              Quiz de Fixação
+              Histórico
+            </button>
+            <button
+              onClick={() => setActiveTab('architecture')}
+              className="hover:text-slate-300 transition-colors cursor-pointer"
+            >
+              Arquitetura & QA
             </button>
           </div>
         </div>

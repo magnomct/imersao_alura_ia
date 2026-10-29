@@ -1,1 +1,6 @@
-{"name":"Python_Calculadora_Simples","description":"Aprenda lógica de programação com uma calculadora básica em Python passo a passo: variáveis, instruções sequenciais e condições explicadas de forma simples.","requestFramePermissions":[],"majorCapabilities":["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]}
+{
+  "name": "Python_Calculadora_Cientifica",
+  "description": "Calculadora Científica Modular em Python v2.0 alinhada ao Well-Architected Framework: Álgebra SymPy, Gráficos Matplotlib, Conversores, Segurança AppSec e 62 Testes Automatizados.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

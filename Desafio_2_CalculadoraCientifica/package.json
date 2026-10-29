@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "test": "tsx --test src/utils/calculator-simulator.test.ts"
+    "test": "tsx --test src/utils/scientific-engine.test.ts src/utils/calculator-simulator.test.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

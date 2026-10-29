@@ -6,25 +6,21 @@
 import React from 'react';
 import {
   Calculator as CalculatorIcon,
-  Terminal,
-  BookOpen,
-  HelpCircle,
+  LineChart,
+  ArrowLeftRight,
+  History,
+  ShieldCheck,
+  Download,
   Copy,
   Check,
-  Download,
   Sparkles,
-  ChevronDown,
-  Eye,
-  EyeOff,
 } from 'lucide-react';
 
-export type AppTab = 'calculator' | 'simulator' | 'concepts' | 'quiz';
+export type ScientificTab = 'calculator' | 'plotter' | 'converters' | 'history' | 'architecture';
 
 interface HeaderProps {
-  activeTab: AppTab;
-  setActiveTab: (tab: AppTab) => void;
-  showAllMenus: boolean;
-  setShowAllMenus: (show: boolean) => void;
+  activeTab: ScientificTab;
+  setActiveTab: (tab: ScientificTab) => void;
   onCopyCode: () => void;
   copied: boolean;
   onDownloadCode: () => void;
@@ -33,8 +29,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   activeTab,
   setActiveTab,
-  showAllMenus,
-  setShowAllMenus,
   onCopyCode,
   copied,
   onDownloadCode,
@@ -44,126 +38,102 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           
-          {/* Logo & Identity */}
+          {/* Logo & Identidade Científica */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => setActiveTab('calculator')}
-              className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-yellow-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-yellow-500/10 ring-1 ring-yellow-400/30 cursor-pointer hover:scale-105 transition-transform"
-              title="Ir para a Calculadora"
-              aria-label="Ir para a Calculadora"
+              className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-emerald-500/15 ring-1 ring-emerald-400/30 cursor-pointer hover:scale-105 transition-transform"
+              title="Calculadora Científica"
             >
-              <span className="text-xl font-black text-slate-950 font-mono">Py</span>
+              <span className="text-xl font-black text-slate-950 font-mono">f(x)</span>
             </button>
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-lg font-bold text-white tracking-tight">
-                  Calculadora Python
+                  Calculadora Científica Modular
                 </h1>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
-                  <Sparkles className="w-3 h-3" /> Nível Iniciante
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3" /> v2.0 Enterprise
                 </span>
               </div>
               <p className="text-xs text-slate-400">
-                Operações matemáticas básicas e lógica de programação em Python
+                Well-Architected Framework • SymPy • Matplotlib • AppSec Hardening
               </p>
             </div>
           </div>
 
-          {/* Navigation Tabs */}
+          {/* Abas de Navegação */}
           <nav
-            className="flex flex-wrap items-center gap-1.5 bg-slate-800/90 p-1 rounded-xl border border-slate-700/60 shadow-inner"
-            aria-label="Navegação principal"
+            className="flex flex-wrap items-center gap-1.5 bg-slate-800/90 p-1 rounded-xl border border-slate-700/60 shadow-inner text-xs"
+            aria-label="Navegação da calculadora"
           >
-            {/* Botão Inicial: Somente Calculadora */}
             <button
               onClick={() => setActiveTab('calculator')}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
                 activeTab === 'calculator'
                   ? 'bg-emerald-500 text-slate-950 font-bold shadow-md shadow-emerald-500/20 ring-1 ring-emerald-300'
-                  : 'text-slate-200 hover:text-white hover:bg-slate-750'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-750'
               }`}
-              aria-current={activeTab === 'calculator' ? 'page' : undefined}
             >
               <CalculatorIcon className="w-3.5 h-3.5" />
-              <span>Somente Calculadora</span>
+              <span>Calculadora</span>
             </button>
 
-            {/* Outros menus: aparecem depois / quando ativados */}
-            {showAllMenus ? (
-              <>
-                <button
-                  onClick={() => setActiveTab('simulator')}
-                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                    activeTab === 'simulator'
-                      ? 'bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/20'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
-                  }`}
-                  aria-current={activeTab === 'simulator' ? 'page' : undefined}
-                >
-                  <Terminal className="w-3.5 h-3.5" />
-                  <span>Código & Simulador</span>
-                </button>
+            <button
+              onClick={() => setActiveTab('plotter')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+                activeTab === 'plotter'
+                  ? 'bg-emerald-500 text-slate-950 font-bold shadow-md shadow-emerald-500/20 ring-1 ring-emerald-300'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-750'
+              }`}
+            >
+              <LineChart className="w-3.5 h-3.5" />
+              <span>Gráficos f(x)</span>
+            </button>
 
-                <button
-                  onClick={() => setActiveTab('concepts')}
-                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                    activeTab === 'concepts'
-                      ? 'bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/20'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
-                  }`}
-                  aria-current={activeTab === 'concepts' ? 'page' : undefined}
-                >
-                  <BookOpen className="w-3.5 h-3.5" />
-                  <span>Guia de Conceitos</span>
-                </button>
+            <button
+              onClick={() => setActiveTab('converters')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+                activeTab === 'converters'
+                  ? 'bg-emerald-500 text-slate-950 font-bold shadow-md shadow-emerald-500/20 ring-1 ring-emerald-300'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-750'
+              }`}
+            >
+              <ArrowLeftRight className="w-3.5 h-3.5" />
+              <span>Conversores</span>
+            </button>
 
-                <button
-                  onClick={() => setActiveTab('quiz')}
-                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                    activeTab === 'quiz'
-                      ? 'bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/20'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
-                  }`}
-                  aria-current={activeTab === 'quiz' ? 'page' : undefined}
-                >
-                  <HelpCircle className="w-3.5 h-3.5" />
-                  <span>Quiz & Desafios</span>
-                </button>
+            <button
+              onClick={() => setActiveTab('history')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+                activeTab === 'history'
+                  ? 'bg-emerald-500 text-slate-950 font-bold shadow-md shadow-emerald-500/20 ring-1 ring-emerald-300'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-750'
+              }`}
+            >
+              <History className="w-3.5 h-3.5" />
+              <span>Histórico</span>
+            </button>
 
-                <button
-                  onClick={() => setShowAllMenus(false)}
-                  className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-[11px] text-slate-400 hover:text-slate-200 hover:bg-slate-700/50 transition-colors ml-1 cursor-pointer"
-                  title="Ocultar outros menus e focar na calculadora"
-                >
-                  <EyeOff className="w-3 h-3" />
-                  <span>Ocultar</span>
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={() => {
-                  setShowAllMenus(true);
-                  if (activeTab === 'calculator') {
-                    setActiveTab('simulator');
-                  }
-                }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-purple-500/20 text-purple-300 hover:bg-purple-500/30 border border-purple-500/30 transition-all cursor-pointer"
-                title="Mostrar menus do código Python, conceitos e quiz"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                <span>Mostrar Outros Menus</span>
-                <ChevronDown className="w-3 h-3 text-purple-400 -mr-0.5" />
-              </button>
-            )}
+            <button
+              onClick={() => setActiveTab('architecture')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+                activeTab === 'architecture'
+                  ? 'bg-emerald-500 text-slate-950 font-bold shadow-md shadow-emerald-500/20 ring-1 ring-emerald-300'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-750'
+              }`}
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Arquitetura & QA</span>
+            </button>
           </nav>
 
-          {/* Quick Actions */}
+          {/* Ações Rápidas */}
           <div className="flex items-center gap-2">
             <button
               onClick={onCopyCode}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-750 hover:text-white transition-colors cursor-pointer"
               title="Copiar código Python completo"
-              aria-label="Copiar código Python"
             >
               {copied ? (
                 <>
@@ -173,19 +143,18 @@ export const Header: React.FC<HeaderProps> = ({
               ) : (
                 <>
                   <Copy className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Copiar Código</span>
+                  <span>Copiar Python</span>
                 </>
               )}
             </button>
 
             <button
               onClick={onDownloadCode}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-500/10 text-amber-300 border border-amber-500/30 hover:bg-amber-500/20 transition-colors cursor-pointer"
-              title="Baixar arquivo calculadora.py"
-              aria-label="Baixar arquivo calculadora.py"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/20 transition-colors cursor-pointer"
+              title="Baixar arquivo main.py"
             >
               <Download className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Baixar</span> .py
+              <span>main.py</span>
             </button>
           </div>
 
