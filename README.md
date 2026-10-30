@@ -14,6 +14,7 @@ Repositório dedicado aos projetos e exercícios práticos desenvolvidos durante
 | [**Desafio 1 - Calculadora Simples**](./Desafio_1_CalculadoraSimples) | Calculadora sequencial didática com simulador visual interativo, variáveis e I/O | Python 3, React 19, Vite, Tailwind | Concluído ✅ |
 | [**Desafio 2 - Calculadora Científica**](./Desafio_2_CalculadoraCientifica) | Calculadora científica modular com interface web rica, plotagem SVG, Well-Architected Framework e AppSec | Python 3.12, React 19, SymPy, Matplotlib, Docker, Pytest | Concluído ✅ |
 | [**Desafio 3 - Lista de Tarefas (To-Do List)**](./Desafio_3_ToDoList) | Aplicação de gerenciamento de tarefas com fluxo de estado reativo, melhoria visual em itens concluídos e persistência | React 19, TypeScript, Vite, Tailwind CSS, Python | Concluído ✅ |
+| [**Agente de Estudos & Agenda**](./dev_agy/alura-imersao-dev-agy) | Agente inteligente de mentoria de estudos construído com Google ADK, Skills personalizadas e exportação de agenda em CSV | Google ADK, Gemini, Python 3.12, UV | Concluído ✅ |
 
 ---
 
